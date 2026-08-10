@@ -15,7 +15,7 @@ export default function SignUpPage() {
           priority
         />
       </div>
-      <SignUp />
+      <SignUp path="/sign-up" routing="path" signInUrl="/sign-in" />
       <div className="mt-8 flex gap-4 text-sm text-gray-500">
         <Link href="/gebruiksvoorwaarden" className="hover:text-gray-700 transition-colors">
           Gebruiksvoorwaarden
