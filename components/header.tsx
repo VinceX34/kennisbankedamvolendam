@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { UserButton, SignInButton, SignUpButton, SignedIn, SignedOut } from "@clerk/nextjs";
+import { UserButton, SignInButton, SignUpButton, Show } from "@clerk/nextjs";
 
 export default function Header() {
   const pathname = usePathname();
@@ -23,7 +23,7 @@ export default function Header() {
       </div>
 
       <div className="flex-1 flex items-center justify-end gap-3">
-        <SignedOut>
+        <Show when="signed-out">
           <SignInButton>
             <button className="text-sm font-medium text-foreground hover:text-primary transition-colors cursor-pointer">
               Inloggen
@@ -34,10 +34,10 @@ export default function Header() {
               Registreren
             </button>
           </SignUpButton>
-        </SignedOut>
-        <SignedIn>
+        </Show>
+        <Show when="signed-in">
           <UserButton />
-        </SignedIn>
+        </Show>
       </div>
     </header>
   );

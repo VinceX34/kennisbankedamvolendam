@@ -1,5 +1,6 @@
 import { SignIn } from "@clerk/nextjs"
 import Image from "next/image"
+import Link from "next/link"
 
 export default function SignInPage() {
   return (
@@ -15,6 +16,15 @@ export default function SignInPage() {
         />
       </div>
       <SignIn />
+      <div className="mt-8 flex gap-4 text-sm text-gray-500">
+        <Link href="/gebruiksvoorwaarden" className="hover:text-gray-700 transition-colors">
+          Gebruiksvoorwaarden
+        </Link>
+        <span>·</span>
+        <Link href="/privacyvoorwaarden" className="hover:text-gray-700 transition-colors">
+          Privacyvoorwaarden
+        </Link>
+      </div>
     </div>
   )
 }
