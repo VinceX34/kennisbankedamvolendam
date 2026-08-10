@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
+import { anonymizeText } from "@/lib/anonymize";
 
 export const maxDuration = 300;
 
 const EDAM_VOICEFLOW_API_KEY = process.env.EDAM_VOICEFLOW_API_KEY || "";
+const PII_MIN_LENGTH = 30;
 
 const VOICEFLOW_RUNTIME_ENDPOINT = "https://general-runtime.voiceflow.com";
 
@@ -15,6 +17,10 @@ export async function POST(req: Request) {
         { error: "Voiceflow API key is niet geconfigureerd." },
         { status: 500 }
       );
+    }
+
+    if (action.type === "text" && typeof action.payload === "string" && action.payload.length > PII_MIN_LENGTH) {
+      action.payload = await anonymizeText(action.payload);
     }
 
     const headers = {

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 
 export default function Header() {
   return (
@@ -12,7 +13,18 @@ export default function Header() {
         <Image src="/Kennisbank_logo.png" alt="Kennisbank Logo" width={450} height={120} className="h-48 w-auto" priority />
       </div>
 
-      <div className="flex-1"></div>
+      <div className="flex-1 flex items-center justify-end gap-2">
+        <SignedOut>
+          <SignInButton mode="modal">
+            <button className="px-4 py-2 text-sm font-medium text-white bg-[#1e3a5f] hover:bg-[#152d4a] rounded-md transition-colors">
+              Inloggen
+            </button>
+          </SignInButton>
+        </SignedOut>
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
+      </div>
     </header>
   );
 }
