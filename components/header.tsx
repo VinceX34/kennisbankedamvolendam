@@ -1,9 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import { Show, SignInButton, UserButton } from "@clerk/nextjs";
+import { usePathname } from "next/navigation";
+import { UserButton, SignInButton, SignUpButton, SignedIn, SignedOut } from "@clerk/nextjs";
 
 export default function Header() {
+  const pathname = usePathname();
+
+  if (pathname.startsWith("/sign-in") || pathname.startsWith("/sign-up")) {
+    return null;
+  }
+
   return (
     <header className="w-full bg-background border-b border-border p-4 flex items-center h-28 justify-between">
       <div className="flex-1 flex items-center gap-4">
@@ -15,17 +22,22 @@ export default function Header() {
         <Image src="/Kennisbank_logo.png" alt="Kennisbank Logo" width={450} height={120} className="h-48 w-auto" priority />
       </div>
 
-      <div className="flex-1 flex items-center justify-end gap-2">
-        <Show when="signed-out">
-          <SignInButton mode="modal">
-            <button className="px-4 py-2 text-sm font-medium text-white bg-[#1e3a5f] hover:bg-[#152d4a] rounded-md transition-colors">
+      <div className="flex-1 flex items-center justify-end gap-3">
+        <SignedOut>
+          <SignInButton>
+            <button className="text-sm font-medium text-foreground hover:text-primary transition-colors cursor-pointer">
               Inloggen
             </button>
           </SignInButton>
-        </Show>
-        <Show when="signed-in">
+          <SignUpButton>
+            <button className="bg-[#1e3a5f] text-white text-sm font-medium rounded-md px-4 py-2 hover:bg-[#152d4a] transition-opacity cursor-pointer">
+              Registreren
+            </button>
+          </SignUpButton>
+        </SignedOut>
+        <SignedIn>
           <UserButton />
-        </Show>
+        </SignedIn>
       </div>
     </header>
   );
