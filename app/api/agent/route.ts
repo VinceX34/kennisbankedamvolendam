@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { auth } from "@clerk/nextjs/server";
 import { anonymizeText } from "@/lib/anonymize";
 
 export const maxDuration = 300;
@@ -10,7 +11,17 @@ const VOICEFLOW_RUNTIME_ENDPOINT = "https://general-runtime.voiceflow.com";
 
 export async function POST(req: Request) {
   try {
-    const { action, userId } = await req.json();
+    const { userId: clerkUserId } = await auth();
+    
+    if (!clerkUserId) {
+      return NextResponse.json(
+        { error: "Unauthorized" },
+        { status: 401 }
+      );
+    }
+
+    const { action } = await req.json();
+    const userId = clerkUserId;
 
     if (!EDAM_VOICEFLOW_API_KEY) {
       return NextResponse.json(
