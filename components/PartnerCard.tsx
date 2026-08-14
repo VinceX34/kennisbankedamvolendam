@@ -127,18 +127,6 @@ export default function PartnerCard({ item, badgeColorClass }: PartnerCardProps)
               ))}
             </div>
 
-            {item.tags && item.tags.length > 0 && (
-              <div className="flex flex-wrap gap-1.5 pt-2 border-t border-gray-200">
-                {item.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="inline-block rounded-full bg-gray-200 text-gray-600 text-xs px-2 py-0.5"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            )}
           </div>
         )}
 
