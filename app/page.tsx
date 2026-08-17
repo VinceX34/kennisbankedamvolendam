@@ -6,6 +6,7 @@ import NetwerkpartnersContent from "@/components/NetwerkpartnersContent"
 import LevensgebiedDetail from "@/components/LevensgebiedDetail"
 import { Button } from "@/components/ui/button"
 import { PanelLeft, PanelRight, Rows3 } from "lucide-react"
+import Link from "next/link"
 
 export default function Home() {
   const [viewMode, setViewMode] = useState<"split" | "docsOnly" | "chatOnly">(
@@ -52,7 +53,7 @@ export default function Home() {
 
         {/* Links: netwerkpartners */}
         <div
-          className={`border-r border-border bg-card flex flex-col min-h-0 pb-6 transition-all duration-300 ease-in-out overflow-y-auto ${
+          className={`border-r border-border bg-card flex flex-col min-h-0 transition-all duration-300 ease-in-out overflow-y-auto ${
             viewMode === "split"
               ? "w-1/2"
               : viewMode === "docsOnly"
@@ -61,16 +62,33 @@ export default function Home() {
           }`}
           style={{ scrollbarGutter: "stable both-edges" }}
         >
-          {selectedLevensgebied ? (
-            <LevensgebiedDetail
-              levensgebied={selectedLevensgebied}
-              onBack={() => setSelectedLevensgebied(null)}
-            />
-          ) : (
-            <NetwerkpartnersContent
-              onLevensgebiedSelect={setSelectedLevensgebied}
-            />
-          )}
+          <div className="flex-1 min-h-0">
+            {selectedLevensgebied ? (
+              <LevensgebiedDetail
+                levensgebied={selectedLevensgebied}
+                onBack={() => setSelectedLevensgebied(null)}
+              />
+            ) : (
+              <NetwerkpartnersContent
+                onLevensgebiedSelect={setSelectedLevensgebied}
+              />
+            )}
+          </div>
+          <div className="p-4 mt-auto border-t border-border text-center">
+            <Link 
+              href="/gebruiksvoorwaarden" 
+              className="text-xs text-muted-foreground hover:text-primary transition-colors"
+            >
+              Gebruiksvoorwaarden
+            </Link>
+            <span className="text-xs text-muted-foreground/50 mx-2">•</span>
+            <Link 
+              href="/privacyvoorwaarden" 
+              className="text-xs text-muted-foreground hover:text-primary transition-colors"
+            >
+              Privacyvoorwaarden
+            </Link>
+          </div>
         </div>
 
         {/* Rechts: A.I.-agent */}
